@@ -13,14 +13,14 @@ response = requests.get(dataset_path)
 if response.status_code == 200:
     # Open the downloaded bytes and extract them
     with ZipFile(BytesIO(response.content)) as zip_file:
-        zip_file.extractall('/dataset')
+        zip_file.extractall('~/mldl_project_skeleton/dataset')
     print('Download and extraction complete!')
 
-with open('/dataset/tiny-imagenet/tiny-imagenet-200/val/val_annotations.txt') as f:
+with open('~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/val_annotations.txt') as f:
     for line in f:
         fn, cls, *_ = line.split('\t')
-        os.makedirs(f'/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}', exist_ok=True)
+        os.makedirs(f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}', exist_ok=True)
 
-        shutil.copyfile(f'.dataset/tiny-imagenet/tiny-imagenet-200/val/images/{fn}', f'/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}/{fn}')
+        shutil.copyfile(f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/images/{fn}', f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}/{fn}')
 
-shutil.rmtree('/dataset/tiny-imagenet/tiny-imagenet-200/val/images')
+shutil.rmtree('~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/images')

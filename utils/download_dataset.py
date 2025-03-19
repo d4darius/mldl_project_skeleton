@@ -13,7 +13,7 @@ response = requests.get(dataset_path)
 if response.status_code == 200:
     # Open the downloaded bytes and extract them
     with ZipFile(BytesIO(response.content)) as zip_file:
-        zip_file.extractall('../dataset')
+        zip_file.extractall('/dataset')
     print('Download and extraction complete!')
 
 with open('../dataset/tiny-imagenet/tiny-imagenet-200/val/val_annotations.txt') as f:

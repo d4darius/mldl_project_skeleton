@@ -1,3 +1,4 @@
+from models.customnet import CustomNet
 from utils.func import validate
 from data.dataloader import val_loader
 import torch
@@ -11,7 +12,7 @@ latest_checkpoint = max(
 )
 
 # Initialize the model and load the state dictionary
-model = CustomEnet().cuda()
+model = CustomNet().cuda()
 model.load_state_dict(torch.load(latest_checkpoint))
 model.eval()
 criterion = nn.CrossEntropyLoss()

@@ -1,6 +1,7 @@
 from torchvision.datasets import ImageFolder
 import torchvision.transforms as T
 import torch
+import os
 
 transform = T.Compose([
     T.Resize((224, 224)),  # Resize to fit the input dimensions of the network
@@ -8,10 +9,10 @@ transform = T.Compose([
     T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# root/{class}/x001.jpg
+dataset_path = os.path.join(os.getcwd(), 'dataset')
 
-tiny_imagenet_dataset_train = ImageFolder(root='~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/train', transform=transform)
-tiny_imagenet_dataset_val = ImageFolder(root='~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val', transform=transform)
+tiny_imagenet_dataset_train = ImageFolder(root=os.path.join(dataset_path, 'tiny-imagenet-200', 'train'), transform=transform)
+tiny_imagenet_dataset_val = ImageFolder(root=os.path.join(dataset_path, 'tiny-imagenet-200', 'val'), transform=transform)
 
 train_loader = torch.utils.data.DataLoader(tiny_imagenet_dataset_train, batch_size=32, shuffle=True)
 val_loader = torch.utils.data.DataLoader(tiny_imagenet_dataset_val, batch_size=32, shuffle=False)

@@ -13,14 +13,23 @@ response = requests.get(dataset_path)
 if response.status_code == 200:
     # Open the downloaded bytes and extract them
     with ZipFile(BytesIO(response.content)) as zip_file:
-        zip_file.extractall('~/mldl_project_skeleton/dataset')
+        # Construct the path relative to the current working directory
+        dataset_path = os.path.join(os.getcwd(), 'dataset')
+        zip_file.extractall(dataset_path)
     print('Download and extraction complete!')
 
-with open('~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/val_annotations.txt') as f:
+val_annotations_path = os.path.join(dataset_path, 'tiny-imagenet-200', 'val', 'val_annotations.txt')
+val_images_path = os.path.join(dataset_path, 'tiny-imagenet-200', 'val', 'images')
+
+with open(val_annotations_path) as f:
     for line in f:
         fn, cls, *_ = line.split('\t')
-        os.makedirs(f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}', exist_ok=True)
+        cls_dir = os.path.join(dataset_path, 'tiny-imagenet-200', 'val', cls)
+        os.makedirs(cls_dir, exist_ok=True)
 
-        shutil.copyfile(f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/images/{fn}', f'~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/{cls}/{fn}')
+        shutil.copyfile(
+            os.path.join(val_images_path, fn),
+            os.path.join(cls_dir, fn)
+        )
 
-shutil.rmtree('~/mldl_project_skeleton/dataset/tiny-imagenet/tiny-imagenet-200/val/images')
+shutil.rmtree(val_images_path)

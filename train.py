@@ -1,4 +1,4 @@
-from models.customenet import CustomNet
+from models.customnet import CustomNet
 from utils.func import train
 from data.dataloader import train_loader
 import os

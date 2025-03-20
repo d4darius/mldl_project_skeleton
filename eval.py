@@ -3,6 +3,8 @@ from utils.func import validate
 from data.dataloader import val_loader
 import torch
 import os
+import torch
+from torch import nn
 
 # Load the latest model checkpoint from the checkpoints folder
 checkpoint_dir = 'checkpoints'
